@@ -2,6 +2,8 @@ readarray test_examples < tests/tests_list.txt
 exit_code=0
 at_least_one_test_launched=0
 
+make -C ${ZKLLVM_BUILD:-build} all_for_test_run -j 8
+
 for i in ${!test_examples[*]}; do
   test_example=${test_examples[i]//$'\n'/}
   parent_dir=$(dirname "$test_example")
