@@ -204,5 +204,8 @@ add_zkllvm_unit_test("algebra/integers/shift/right")
 #bool tests
 add_zkllvm_unit_test("algebra/bool/assigner_exit_check")
 
+#fixedpoint tests
+add_zkllvm_unit_test("algebra/fixedpoints/test")
+
 add_dependencies(all_for_test_run all_circuit_tests)
 add_dependencies(all_for_test_run all_expected_res_tests)
