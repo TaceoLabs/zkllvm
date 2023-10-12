@@ -9,7 +9,7 @@
 #define BOOST_SYSTEM_NO_DEPRECATED
 #endif
 
-
+#include <boost/json/string.hpp>
 #include <boost/json/src.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/optional.hpp>
@@ -110,6 +110,53 @@ typename OperatingFieldType::value_type read_field(boost::json::value& input_jso
 
     return parse_scalar<OperatingFieldType>(current_value.at("field"));
 }
+
+bool is_digits(const boost::json::string &str)
+{
+    return std::all_of(str.begin(), str.end(), ::isdigit); // C++11
+}
+
+long str2int(const boost::json::string &str) {
+    if (!is_digits(str)) {
+        std::cerr << "Invalid number " << str << std::endl;
+        assert(false && "Invalid number");
+    }
+    errno = 0;
+    long i = strtol(str.c_str(), nullptr, 0);
+    if ((errno == ERANGE && i == LONG_MAX) || i > INT_MAX) {
+        std::cerr << "fixed point too large \"" << str << "\"" << std::endl;
+        assert(false && "Fixedpoint too large");
+    }
+    if ((errno == ERANGE && i == LONG_MIN) || i < INT_MIN) {
+        std::cerr << "fixed point too small \"" << str << "\"" << std::endl;
+        assert(false && "Fixedpoint too small");
+    }
+    return i;
+}
+
+
+
+void read_fixedpoint(boost::json::value& input_json_value, std::size_t position) {
+    const boost::json::object &current_value = input_json_value.as_array()[position].as_object();
+    if (current_value.size() != 1)
+        assert(false && "field length must be 1");
+    if(!current_value.contains("zk-fixedpoint"))
+        assert(false && "json value must contain \"zk-fixedpoint\"");
+    if (!current_value.at("zk-fixedpoint").is_string()) {
+        assert(false && "Fixedpoint type must be string to parse");
+    }
+    boost::json::string value = current_value.at("zk-fixedpoint").as_string();
+    std::size_t comma = value.find('.');
+    if (comma == boost::json::string::npos || comma == 0 || comma + 1 == value.size()) {
+        std::cout << "I should crash!" << std::endl;
+        assert(false && "Fixedpoint must have form \"PRE_DIGITS.POST_DIGITS\"");
+    }
+    long pre_comma = str2int(boost::json::string (value.subview(0, comma)));
+    long post_comma = str2int(boost::json::string (value.subview(comma + 1, value.size())));
+    std::cout << "I got " << pre_comma << "." << post_comma << std::endl;
+}
+
+
 
 
 uint32_t read_uint32_t(boost::json::value& input_json_value, std::size_t position) {
