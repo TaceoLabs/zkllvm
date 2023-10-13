@@ -44,12 +44,11 @@ while.end:                                        ; preds = %while.cond
 }
 
 ; Function Attrs: circuit mustprogress nounwind
-define dso_local noundef zeroext i1 @_Z15assert_equalutyjj(__zkllvm_fixed1616 noundef %a, __zkllvm_fixed1616 noundef %b, __zkllvm_fixed1616 noundef %c) local_unnamed_addr #1 {
+define dso_local noundef zeroext __zkllvm_fixed1616 @_Z15assert_equalutyjj(__zkllvm_fixed1616 noundef %a, __zkllvm_fixed1616 noundef %b, __zkllvm_fixed1616 noundef %c) local_unnamed_addr #1 {
 entry:
   %0 = fadd __zkllvm_fixed1616 %a, %b
-  %cmp = fcmp oeq __zkllvm_fixed1616 %0, %c
-  tail call void @llvm.assigner.exit.check(i1 %cmp)
-  ret i1 %cmp
+  %1 = fadd __zkllvm_fixed1616 %0, %c
+  ret __zkllvm_fixed1616 %1
 }
 
 ; Function Attrs: nounwind
