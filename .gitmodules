@@ -3,13 +3,13 @@
 	url = ../../BoostCMake/cmake_modules.git
 [submodule "zkllvm-assigner"]
 	path = libs/assigner
-	url = ../../NilFoundation/zkllvm-assigner.git
+	url = ../../TaceoLabs/zkllvm-assigner.git
 [submodule "zkllvm-circifier"]
 	path = libs/circifier
-	url = ../../NilFoundation/zkllvm-circifier.git
+	url = ../../TaceoLabs/zkllvm-circifier.git
 [submodule "zkllvm-blueprint"]
 	path = libs/blueprint
-	url = ../../NilFoundation/zkllvm-blueprint.git
+	url = ../../TaceoLabs/zkllvm-blueprint.git
 [submodule "libs/stdlib"]
 	path = libs/stdlib
 	url = ../../NilFoundation/zkllvm-stdlib.git
