@@ -642,3 +642,8 @@ callgrind.*
 
 .ycm_extra_config.py
 .color_coded
+
+circuit
+table.asgn
+test
+tests/tests_list.txt
