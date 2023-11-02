@@ -646,4 +646,3 @@ callgrind.*
 circuit
 table.asgn
 test
-tests/tests_list.txt
