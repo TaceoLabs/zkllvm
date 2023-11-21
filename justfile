@@ -14,4 +14,7 @@ test-onnx-models:
 test-all: test-onnx-models && test-zkllvm-unittests
 
 run-mnist:
-	./build/bin/assigner/assigner -b tests/basic_mnist.0.0.ll -i tests/inputs/algebra/fixedpoints/mnist.inp -t table.asgn -c circuit -e pallas --print_circuit_output
+  ./build/bin/assigner/assigner -b tests/onnx/BasicMnist/basic_mnist.ll -i  tests/inputs/onnx/BasicMnist/in.json -t mnist_table.asgn -c mnist.crct -e pallas --print_circuit_output  --check
+
+run-conv-mnist:
+  ./build/bin/assigner/assigner -b tests/onnx/ConvMnist/mnist-12.ll -i  tests/inputs/onnx/BasicMnist/in.json -t mnist_table.asgn -c mnist.crct -e pallas --print_circuit_output  --check
